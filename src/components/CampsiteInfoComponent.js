@@ -3,12 +3,12 @@ import { Component } from 'react';
 
 import { Card, CardImg, CardBody, CardText, CardTitle } from 'reactstrap'
 
-class CampsiteInfo extends Component {
 
 
 
 
-    renderCampsite(campsite) {
+
+    function RenderCampsite({campsite}) {
 
         if (campsite) {
             return (
@@ -31,7 +31,7 @@ class CampsiteInfo extends Component {
     }
 
 
-    renderComments(comments) {
+   function RenderComments({comments}) {
 
 
         if (comments) {
@@ -57,15 +57,15 @@ class CampsiteInfo extends Component {
 
 
 
-    render() {
-
+  
+function CampsiteInfo(props){
         return (
             <>
-                { this.props.campsite ?
+                {props.campsite ?
              <div className="container">
                     <div className='row'>
-                        {this.renderCampsite(this.props.campsite)}
-                        {this.renderComments(this.props.campsite.comments)}
+                      <RenderCampsite campsite={props.campsite} />
+                      <RenderComments comments={props.campsite.comments}/>
                     </div> 
                     </div>:
                     <div ></div>
@@ -76,6 +76,8 @@ class CampsiteInfo extends Component {
 
     }
 
-}
+
+
+
 
 export default CampsiteInfo
