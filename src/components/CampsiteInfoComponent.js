@@ -1,7 +1,7 @@
 
 import { Component } from 'react';
 
-import { Card, CardImg, CardText, CardBody, CardTitle,Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Button,Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -46,7 +46,7 @@ import { Link } from 'react-router-dom';
                         </div>
 
                     ))}
-
+<CommentForm/>
                 </div>
 
             )
@@ -54,7 +54,14 @@ import { Link } from 'react-router-dom';
     }
 
 
+function CommentForm(){
 
+
+    return(
+
+        <Button type="button" className="btn btn-outline-white btn-rounded waves-effect"><i className="fa fa-pencil "></i> Submit Comment</Button>
+    )
+}
 
 
   
@@ -75,6 +82,7 @@ function CampsiteInfo(props){
                 <div className="row">
                     <RenderCampsite campsite={props.campsite} />
                     <RenderComments comments={props.comments} />
+                    
                 </div>
             </div>
         )

@@ -7,26 +7,26 @@ function About(props) {
 
     const partners = props.partners.map(partner => {
         return (
-            <Media>
-                <li key={partner.id}><RenderPartner partner={partner} /></li>
+            <Media  key={partner.id}>
+                <RenderPartner partner={partner} />
             </Media>
         );
     });
 
 
-    function RenderPartner(props) {
+    function RenderPartner({partner}) {
 
-        if (props.partner) {
+        if (partner) {
 
             return (
 
                 <>
-                    <Media object src={props.partner.image} alt={props.partner.name} width='150' />
+                    <Media object src={partner.image} alt={partner.name} width='150' />
 
                     <Media body className='ml-5 mb-4'>
 
-                        <Media heading> {props.partner.name}</Media>
-                        {props.partner.description && <div>{props.partner.description}</div>}
+                        <Media heading> {partner.name}</Media>
+                        {partner.description && <div>{partner.description}</div>}
                     </Media>
 
                 </>
