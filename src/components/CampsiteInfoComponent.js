@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import CommentForm from './CommentForm'
 
-
+import { Loading } from './LoadingComponent';//this is to render loading cirlce when isLoading is true and dispatched fromactionCreaters.js
 
 
     function RenderCampsite({campsite}) {
@@ -61,7 +61,28 @@ import CommentForm from './CommentForm'
 
   
 function CampsiteInfo(props){
-
+    //no else statement is required statements are boolean if they evaluate true they will be executed..
+    if (props.isLoading) { //if is loading is true show loading anim. Use container, row and col styling in order to preserve bootsrpa grid page layout
+        return (
+            <div className="container">  
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
+        );
+    }
+    if (props.errMess) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <div className="col">
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    if (props.campsite) {
 
     
         return (
@@ -91,7 +112,7 @@ function CampsiteInfo(props){
 
     }
 
-
+}
 
 
 
