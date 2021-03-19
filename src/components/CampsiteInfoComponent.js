@@ -1,10 +1,10 @@
 
 import { Component } from 'react';
 
-import { Card, CardImg, CardText, CardBody, Button,Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
-
+import CommentForm from './CommentForm'
 
 
 
@@ -31,8 +31,8 @@ import { Link } from 'react-router-dom';
     }
 
 
-   function RenderComments({comments}) {
-
+    function RenderComments({comments, addComment, campsiteId}) {
+//simply passing these args to <CommentForm>
 
         if (comments) {
 
@@ -46,7 +46,7 @@ import { Link } from 'react-router-dom';
                         </div>
 
                     ))}
-<CommentForm/>
+             <CommentForm campsiteId={campsiteId} addComment={addComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/ }
                 </div>
 
             )
@@ -54,18 +54,16 @@ import { Link } from 'react-router-dom';
     }
 
 
-function CommentForm(){
+       
 
 
-    return(
-
-        <Button type="button" className="btn btn-outline-white btn-rounded waves-effect"><i className="fa fa-pencil "></i> Submit Comment</Button>
-    )
-}
-
+    
 
   
 function CampsiteInfo(props){
+
+
+    
         return (
             
             <div className="container">
@@ -81,7 +79,11 @@ function CampsiteInfo(props){
                 </div>
                 <div className="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments comments={props.comments} />
+                    <RenderComments 
+                        comments={props.comments}
+                        addComment={props.addComment}
+                        campsiteId={props.campsite.id}
+                    />
                     
                 </div>
             </div>
