@@ -135,7 +135,7 @@ const CommentForm = (props) => {
 
 
 
-            <Button onClick={() => toggleModal(!isModalOpen)} type="button" className="btn btn-outline-white btn-rounded waves-effect"><i className="fa fa-pencil "></i> Submit Comment</Button>
+            <Button onClick={() => toggleModal(!isModalOpen)} type="button" outline><i className="fa fa-pencil "></i> Submit Comment</Button>
 
         </div>
 
