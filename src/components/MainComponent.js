@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 import { addComment, fetchCampsites } from '../redux/ActionCreators';//importing actions from ActionCreators.js
 
-// state data wrapped in mapStateToProps obect
+// state data wrapped in mapStateToProps obect which holds data red from the redux store! (passed to connect as first argument //to read///)
 const mapStateToProps = state => {
     return {
         campsites: state.campsites,
@@ -24,12 +24,19 @@ const mapStateToProps = state => {
     };
 };
 
-//imported action objects wrappen in an object mapDispatchToProps
+//==============================================================================================
+//==============================================================================================
+
+
+
+//imported action objects wrappen in an object mapDispatchToProps which is argument passed to connect function.
+//these functions will be accessible as props.addComment inside this component!!!!
 const mapDispatchToProps = {
     addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
     fetchCampsites: () => (fetchCampsites())
 };
-
+//==============================================================================================
+//==============================================================================================
 
 class Main extends Component {
   
@@ -100,4 +107,16 @@ class Main extends Component {
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
 //exporting Maincomponent in a wrapper called "connect" to connect to Redux store and passing mapDispatchToProps object with actions imported from actionCreators.js
-//and state object as  mapStateToProps which helds the state of the exported main component . So all this is avaliabel to the store.
+
+
+//the connect with 2 arguments( reading state and dispatching actions)(This is the component name that I am connecting to redux (Main this case))
+
+///MapStateToProps function takes the STATE from the store and maps it to props as campsite:state.campsites and so on
+//MapStateToProps can be named as null if I do not read any state
+
+
+//MapDispatchToProps is an object that holds the imported actions  addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)),
+//addComment: is a key ato the addComment action and takes arguments as camsizeID, rating ...
+// MapDispatchToProps can again be null if not using and dispaching actions
+
+//add these to connect so that redux is aware of what actions and state readings this component needs
