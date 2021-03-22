@@ -47,7 +47,7 @@ const CommentForm = (props) => {
 
        // alert("Current state is: " + JSON.stringify(values));
        //addComment is a prop passed by CampsiteINfoComponent 
-       props.addComment(props.campsiteId, values.rating, values.author, values.comment)
+       props.postComment(props.campsiteId, values.rating, values.author, values.comment)
     }
 
 
@@ -55,7 +55,7 @@ const CommentForm = (props) => {
 
 
 
-        <div>
+        <div>  
 
             <Modal isOpen={isModalOpen} toggle={() => toggleModal(!isModalOpen)}>
                 <ModalHeader toggle={() => toggleModal(!isModalOpen)}>Submit Comment</ModalHeader>

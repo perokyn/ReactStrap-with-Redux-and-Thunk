@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import CommentForm from './CommentForm'
 
 import { Loading } from './LoadingComponent';//this is to render loading cirlce when isLoading is true and dispatched fromactionCreaters.js
-
+import { baseUrl } from '../shared/baseUrl';
 
     function RenderCampsite({campsite}) {
 
@@ -18,7 +18,7 @@ import { Loading } from './LoadingComponent';//this is to render loading cirlce 
 
 
                     <Card>
-                        <CardImg top src={campsite.image} alt={campsite.name} />
+                    <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
                         <CardBody>
                             <CardText>{campsite.description}</CardText>
                         </CardBody>
@@ -31,7 +31,7 @@ import { Loading } from './LoadingComponent';//this is to render loading cirlce 
     }
 
 
-    function RenderComments({comments, addComment, campsiteId}) {
+    function RenderComments({comments, postComment, campsiteId}) {
 //simply passing these args to <CommentForm>
 
         if (comments) {
@@ -46,7 +46,7 @@ import { Loading } from './LoadingComponent';//this is to render loading cirlce 
                         </div>
 
                     ))}
-             <CommentForm campsiteId={campsiteId} addComment={addComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/ }
+              <CommentForm campsiteId={campsiteId} postComment={postComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/ }
                 </div>
 
             )
@@ -100,12 +100,11 @@ function CampsiteInfo(props){
                 </div>
                 <div className="row">
                     <RenderCampsite campsite={props.campsite} />
-                    <RenderComments 
+                    <RenderComments
                         comments={props.comments}
-                        addComment={props.addComment}
+                        postComment={props.postComment}
                         campsiteId={props.campsite.id}
-                    />
-                    
+                    />    
                 </div>
             </div>
         )
