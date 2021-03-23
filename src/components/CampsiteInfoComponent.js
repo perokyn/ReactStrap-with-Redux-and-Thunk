@@ -8,24 +8,28 @@ import CommentForm from './CommentForm'
 
 import { Loading } from './LoadingComponent';//this is to render loading cirlce when isLoading is true and dispatched fromactionCreaters.js
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
     function RenderCampsite({campsite}) {
 
         if (campsite) {
             return (
 
-                <div className='col-md-5 m-1'>
-
-
-                    <Card>
+                <div className="col-md-5 m-1">
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Card>
                     <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
-                        <CardBody>
-                            <CardText>{campsite.description}</CardText>
-                        </CardBody>
-                    </Card>
-
-
-                </div>
+                    <CardBody>
+                        <CardText>{campsite.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
+        </div>
             )
         } return <div />
     }
@@ -39,13 +43,24 @@ import { baseUrl } from '../shared/baseUrl';
             return (
                 <div className='col-md-5 m-1'>
                     <h4>Comments</h4>
-                    {comments.map((comment) => (
-                        <div key={comment.author}>
-                            <p>{comment.text}</p>
-                            <p>{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</p>
-                        </div>
+                <Stagger in>
+                    {
+                        comments.map(comment => {
+                            return (
+                                <Fade in key={comment.id}>
+                                    <div>
+                                        <p>
+                                            {comment.text}<br />
+                                            -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                        </p>
+                                    </div>
+                                </Fade>
+                            );
+                        })
+                    }
+                </Stagger>
 
-                    ))}
+         
               <CommentForm campsiteId={campsiteId} postComment={postComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/ }
                 </div>
 

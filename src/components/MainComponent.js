@@ -15,7 +15,7 @@ import {actions} from 'react-redux-form'//<----REMEMBER required top reset the f
 //import { addComment, fetchCampsites } from '../redux/ActionCreators';//importing actions from ActionCreators.js
 
 import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';//importing actions from ActionCreators.js (after adding server connection)
-import { TransitionGroup, CSSTransition } from 'react-transition-group';//--page animation (check app.css for classes)
+import { TransitionGroup, CSSTransition } from 'react-transition-group';//--page animation (check App.css for classes)
 
 
 
@@ -117,7 +117,9 @@ class Main extends Component {
         return (
             <div>
                 <Header />
-                <Switch>
+                <TransitionGroup>
+                    <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+                        <Switch>
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                     <Route path='/directory/:campsiteId' component={CampsiteWithId} />
@@ -125,6 +127,8 @@ class Main extends Component {
                     <Route exact path='/aboutus' render={() => <About partners={this.props.partners} /> } />
                     <Redirect to='/home' />
                 </Switch>
+                </CSSTransition>
+                </TransitionGroup>
                 <Footer />
             </div>
         );
