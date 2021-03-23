@@ -15,6 +15,9 @@ import {actions} from 'react-redux-form'//<----REMEMBER required top reset the f
 //import { addComment, fetchCampsites } from '../redux/ActionCreators';//importing actions from ActionCreators.js
 
 import { postComment, fetchCampsites, fetchComments, fetchPromotions } from '../redux/ActionCreators';//importing actions from ActionCreators.js (after adding server connection)
+import { TransitionGroup, CSSTransition } from 'react-transition-group';//--page animation (check app.css for classes)
+
+
 
 // state data wrapped in mapStateToProps obect which holds data red from the redux store! (passed to connect as first argument //to read///)
 const mapStateToProps = state => {
