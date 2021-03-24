@@ -1,7 +1,7 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { baseUrl } from '../shared/baseUrl';
 
 function About(props) {
 
@@ -13,7 +13,7 @@ function About(props) {
         );
     });
 
-
+//=====TO DO COPNTNUE FROM HERE=====///Import baseUrl from the shared folder, as you have done previously in HomeComponent.js.
     function RenderPartner({partner}) {
 
         if (partner) {
@@ -21,7 +21,8 @@ function About(props) {
             return (
 
                 <>
-                    <Media object src={partner.image} alt={partner.name} width='150' />
+                    {/*<Media object src={partner.image} alt={partner.name} width='150' />*/}
+                    <Media object src={baseUrl + partner.image} alt={partner.name} width='150' />
 
                     <Media body className='ml-5 mb-4'>
 

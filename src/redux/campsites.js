@@ -1,4 +1,4 @@
-import { CAMPSITES } from '../shared/campsites';//data source
+//import { CAMPSITES } from '../shared/campsites';//data source
 import * as ActionTypes from './ActionTypes';
 
 //REDUCER FOR CAMPSITES STATE 
