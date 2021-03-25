@@ -2,19 +2,21 @@ import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
+import { Loading } from './LoadingComponent';//import loading to show loading anim
+
 
 function About(props) {
 
-    const partners = props.partners.map(partner => {
+    const partners = props.partners.partners.map(partner => {
         return (
-            <Media  key={partner.id}>
+            <Media key={partner.id}>
                 <RenderPartner partner={partner} />
             </Media>
         );
     });
 
-//=====TO DO COPNTNUE FROM HERE=====///Import baseUrl from the shared folder, as you have done previously in HomeComponent.js.
-    function RenderPartner({partner}) {
+    //=====TO DO COPNTNUE FROM HERE=====///Import baseUrl from the shared folder, as you have done previously in HomeComponent.js.
+    function RenderPartner( partner ) {
 
         if (partner) {
 
@@ -36,6 +38,44 @@ function About(props) {
         }
 
     }
+
+
+    //==PartnerList========================================
+
+    function PartnerList({partners}) {
+
+        if (partners.isLoading) {
+            return <Loading />;
+        }
+        if (partners.errMess) {
+            return (
+
+                <div className='col'>
+
+                    <h4>{partners.errMess}</h4>
+
+                </div>
+
+            )
+
+
+        }
+
+     return(
+
+<div className= 'col mt-4'>
+<Media list>
+{partners}
+
+</Media>
+
+</div>
+
+     )
+
+
+    }
+
 
 
 
@@ -91,11 +131,7 @@ function About(props) {
                 <div className="col-12">
                     <h3>Community Partners</h3>
                 </div>
-                <div className="col mt-4">
-                    <Media list>
-                        {partners}
-                    </Media>
-                </div>
+               <PartnerList partners={props.partners}/>
             </div>
         </div>
     );
