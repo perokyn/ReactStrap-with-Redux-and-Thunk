@@ -1,6 +1,6 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux'; //applyMiddleware is required to add middleware to redux
+import { createStore, combineReducers, applyMiddleware } from 'redux'; //applyMiddleware is required to add middleware to redux
 //Import reducers======================
-import { Campsites } from './campsites'; 
+import { Campsites } from './campsites';
 import { Comments } from './comments';
 import { Partners } from './partners';
 import { Promotions } from './promotions';

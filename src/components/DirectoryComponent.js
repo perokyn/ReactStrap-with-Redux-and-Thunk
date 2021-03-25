@@ -8,22 +8,22 @@ import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform } from 'react-animation-components';
 
 
-function RenderDirectoryItem({campsite}) {
+function RenderDirectoryItem({ campsite }) {
     return (
 
         <FadeTransform
-        in
-        transformProps={{
-            exitTransform: 'scale(0.5) translateY(50%)'
-        }}>
-        <Card>
-            <Link to={`/directory/${campsite.id}`}>
-            <CardImg width="100%" src={baseUrl + campsite.image} alt={campsite.name} />
-                <CardImgOverlay>
-                    <CardTitle>{campsite.name}</CardTitle>
-                </CardImgOverlay>
-            </Link>
-        </Card>
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(50%)'
+            }}>
+            <Card>
+                <Link to={`/directory/${campsite.id}`}>
+                    <CardImg width="100%" src={baseUrl + campsite.image} alt={campsite.name} />
+                    <CardImgOverlay>
+                        <CardTitle>{campsite.name}</CardTitle>
+                    </CardImgOverlay>
+                </Link>
+            </Card>
         </FadeTransform>
     );
 }
@@ -37,7 +37,7 @@ function Directory(props) {
             </div>
         );
     });
-///again: show loading, show error and render campsites when data is avaliable. (See styling for loading and error using container, row col to preserve bootstrap grid page layout)
+    ///again: show loading, show error and render campsites when data is avaliable. (See styling for loading and error using container, row col to preserve bootstrap grid page layout)
     if (props.campsites.isLoading) {
         return (
             <div className="container">

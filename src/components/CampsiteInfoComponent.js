@@ -11,38 +11,38 @@ import { baseUrl } from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 
-    function RenderCampsite({campsite}) {
+function RenderCampsite({ campsite }) {
 
-        if (campsite) {
-            return (
+    if (campsite) {
+        return (
 
-                <div className="col-md-5 m-1">
-            <FadeTransform
-                in
-                transformProps={{
-                    exitTransform: 'scale(0.5) translateY(-50%)'
-                }}>
-                <Card>
-                    <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
-                    <CardBody>
-                        <CardText>{campsite.description}</CardText>
-                    </CardBody>
-                </Card>
-            </FadeTransform>
-        </div>
-            )
-        } return <div />
-    }
+            <div className="col-md-5 m-1">
+                <FadeTransform
+                    in
+                    transformProps={{
+                        exitTransform: 'scale(0.5) translateY(-50%)'
+                    }}>
+                    <Card>
+                        <CardImg top src={baseUrl + campsite.image} alt={campsite.name} />
+                        <CardBody>
+                            <CardText>{campsite.description}</CardText>
+                        </CardBody>
+                    </Card>
+                </FadeTransform>
+            </div>
+        )
+    } return <div />
+}
 
 
-    function RenderComments({comments, postComment, campsiteId}) {
-//simply passing these args to <CommentForm>
+function RenderComments({ comments, postComment, campsiteId }) {
+    //simply passing these args to <CommentForm>
 
-        if (comments) {
+    if (comments) {
 
-            return (
-                <div className='col-md-5 m-1'>
-                    <h4>Comments</h4>
+        return (
+            <div className='col-md-5 m-1'>
+                <h4>Comments</h4>
                 <Stagger in>
                     {
                         comments.map(comment => {
@@ -51,7 +51,7 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
                                     <div>
                                         <p>
                                             {comment.text}<br />
-                                            -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}
+                                            -- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}
                                         </p>
                                     </div>
                                 </Fade>
@@ -60,26 +60,26 @@ import { FadeTransform, Fade, Stagger } from 'react-animation-components';
                     }
                 </Stagger>
 
-         
-              <CommentForm campsiteId={campsiteId} postComment={postComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/ }
-                </div>
 
-            )
-        }
+                <CommentForm campsiteId={campsiteId} postComment={postComment} /> {/* passing the campsiteID addComment action to comentform which is an arrow function*/}
+            </div>
+
+        )
     }
+}
 
 
-       
 
 
-    
 
-  
-function CampsiteInfo(props){
+
+
+
+function CampsiteInfo(props) {
     //no else statement is required statements are boolean if they evaluate true they will be executed..
     if (props.isLoading) { //if is loading is true show loading anim. Use container, row and col styling in order to preserve bootsrpa grid page layout
         return (
-            <div className="container">  
+            <div className="container">
                 <div className="row">
                     <Loading />
                 </div>
@@ -99,9 +99,9 @@ function CampsiteInfo(props){
     }
     if (props.campsite) {
 
-    
+
         return (
-            
+
             <div className="container">
                 <div className="row">
                     <div className="col">
@@ -119,7 +119,7 @@ function CampsiteInfo(props){
                         comments={props.comments}
                         postComment={props.postComment}
                         campsiteId={props.campsite.id}
-                    />    
+                    />
                 </div>
             </div>
         )

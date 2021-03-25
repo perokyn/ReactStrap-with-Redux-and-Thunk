@@ -23,21 +23,21 @@ import { baseUrl } from '../shared/baseUrl'; ///<---base url for integrating for
 export const fetchCampsites = () => dispatch => {
 
     dispatch(campsitesLoading());//<----hthis action is dispatched so that the component that is rendering campsites knows that the data is not yet loaded
-//this below would be the fetch statememnt to retrieve CAMPSITES data from the server
+    //this below would be the fetch statememnt to retrieve CAMPSITES data from the server
     // setTimeout(() => {
     //     dispatch(addCampsites(CAMPSITES));
     // }, 2000);
 
     return fetch(baseUrl + 'campsites')//<---concatenated string to create path to db.js in server and laod campsites obj array
         .then(response => {
-                if (response.ok) {//<---if there is a response.ok (response code in the 200 range) object then this returns true and returns teh response object
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);//<-if error then create a new error object and throw an error which will be captured by the catch statetemnt at the end
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {//<---if there is a response.ok (response code in the 200 range) object then this returns true and returns teh response object
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);//<-if error then create a new error object and throw an error which will be captured by the catch statetemnt at the end
+                error.response = response;
+                throw error;
+            }
+        },
             error => {//Handle promise rejection
                 const errMess = new Error(error.message);//if access rejeted without any response create another erro message and pass it to the catch error
                 throw errMess;
@@ -46,7 +46,7 @@ export const fetchCampsites = () => dispatch => {
         .then(response => response.json())
         .then(campsites => dispatch(addCampsites(campsites)))
         .catch(error => dispatch(campsitesFailed(error.message)));//<---this will catch all thrown errors and also dispatehces the error action named as : campsitesFailed(error.message) with the message as an arg
-                        //remember campsitesFailed(error.message) is defined in ActionCretors.js {this file jsut below this section}
+    //remember campsitesFailed(error.message) is defined in ActionCretors.js {this file jsut below this section}
 };
 
 //=========handle load, failed to load and add events with the actions below=========
@@ -72,14 +72,14 @@ export const addCampsites = campsites => ({
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
         .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -111,7 +111,7 @@ export const addComment = comment => ({
 
 
 export const postComment = (campsiteId, rating, author, text) => dispatch => {
-    
+
     const newComment = {
         campsiteId: campsiteId,
         rating: rating,
@@ -121,21 +121,21 @@ export const postComment = (campsiteId, rating, author, text) => dispatch => {
     newComment.date = new Date().toISOString();
 
     return fetch(baseUrl + 'comments', {
-            method: "POST",
-            body: JSON.stringify(newComment),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+        method: "POST",
+        body: JSON.stringify(newComment),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
             error => { throw error; }
         )
         .then(response => response.json())
@@ -160,14 +160,14 @@ export const fetchPromotions = () => dispatch => {
 
     return fetch(baseUrl + 'promotions')
         .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -199,14 +199,14 @@ export const addPromotions = promotions => ({
 export const fetchPartners = () => dispatch => {
     return fetch(baseUrl + 'partners')
         .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
             error => {
                 const errMess = new Error(error.message);
                 throw errMess;
@@ -239,32 +239,32 @@ export const addPartners = partners => ({
 
 
 export const postFeedback = (feedback) => dispatch => {
-    
+
     const newFeedback = {
-        feedback:feedback
+        feedback: feedback
     };
     newFeedback.date = new Date().toISOString();
 
     return fetch(baseUrl + 'comments', {
-            method: "POST",
-            body: JSON.stringify(newFeedback),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
         .then(response => {
-                if (response.ok) {
-                    return response;
-                } else {
-                    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-                    error.response = response;
-                    throw error;
-                }
-            },
+            if (response.ok) {
+                return response;
+            } else {
+                const error = new Error(`Error ${response.status}: ${response.statusText}`);
+                error.response = response;
+                throw error;
+            }
+        },
             error => { throw error; }
         )
         .then(response => response.json())
-        .then(()=> alert('Thank you for your feedback!'+ JSON.stringify(newFeedback)))
+        .then(() => alert('Thank you for your feedback!' + JSON.stringify(newFeedback)))
         .catch(error => {
             console.log('post feedback', error.message);
             alert('Your feedback could not be posted\nError: ' + error.message);
