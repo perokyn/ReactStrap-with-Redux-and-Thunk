@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import {actions} from 'react-redux-form'//<----REMEMBER required top reset the form
 //import { addComment, fetchCampsites } from '../redux/ActionCreators';//importing actions from ActionCreators.js
 
-import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners } from '../redux/ActionCreators';//importing actions from ActionCreators.js (after adding server connection)
+import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners, postFeedback } from '../redux/ActionCreators';//importing actions from ActionCreators.js (after adding server connection)
 import { TransitionGroup, CSSTransition } from 'react-transition-group';//--page animation (check App.css for classes)
 
 
@@ -49,7 +49,8 @@ const mapDispatchToProps = {
     resetFeedbackForm: () => (actions.reset('feedbackForm')),
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
-    fetchPartners: () => (fetchPartners())
+    fetchPartners: () => (fetchPartners()),
+    postFeedback:( feedback)=>(postFeedback(feedback))
 };
 
 
@@ -92,7 +93,7 @@ class Main extends Component {
                 campsite={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
                 campsitesLoading={this.props.campsites.isLoading}
                 campsitesErrMess={this.props.campsites.errMess}
-                
+
                 promotion={this.props.promotions.promotions.filter(promotion => promotion.featured)[0]}
                 promotionLoading={this.props.promotions.isLoading}
                 promotionErrMess={this.props.promotions.errMess}
@@ -129,7 +130,7 @@ class Main extends Component {
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                     <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                    <Route exact path='/contactus' component={Contact} />
+                    <Route exact path='/contactus' render={()=> <Contact resetFeedbackForm={this.props.resetFeedbackForm} postFeedback={this.props.postFeedback}/> } />
                     <Route exact path='/aboutus' render={() => <About partners={this.props.partners} /> } />
                     <Redirect to='/home' />
                 </Switch>

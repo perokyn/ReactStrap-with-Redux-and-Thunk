@@ -3,20 +3,14 @@ import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'r
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../shared/baseUrl';
 import { Loading } from './LoadingComponent';//import loading to show loading anim
-
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function About(props) {
 
-    const partners = props.partners.partners.map(partner => {
-        return (
-            <Media key={partner.id}>
-                <RenderPartner partner={partner} />
-            </Media>
-        );
-    });
+
 
     //=====TO DO COPNTNUE FROM HERE=====///Import baseUrl from the shared folder, as you have done previously in HomeComponent.js.
-    function RenderPartner( partner ) {
+    function RenderPartner({ partner }) {
 
         if (partner) {
 
@@ -42,17 +36,29 @@ function About(props) {
 
     //==PartnerList========================================
 
-    function PartnerList({partners}) {
+    function PartnerList(props) {
 
-        if (partners.isLoading) {
+        const partners = props.partners.partners.map(partner => {
+            return (
+                <Fade key={partner.id}>
+
+                    <Media >
+                        <RenderPartner partner={partner} />
+                    </Media>
+                </Fade>
+            );
+        });
+
+
+        if (props.partners.isLoading) {
             return <Loading />;
         }
-        if (partners.errMess) {
+        if (props.partners.errMess) {
             return (
 
                 <div className='col'>
 
-                    <h4>{partners.errMess}</h4>
+                    <h4>{props.partners.errMess}</h4>
 
                 </div>
 
@@ -60,18 +66,21 @@ function About(props) {
 
 
         }
+        console.log('PARNRE LIST', props.partners.partners)
+        return (
 
-     return(
+            <div className='col mt-4'>
 
-<div className= 'col mt-4'>
-<Media list>
-{partners}
+                <Media list>
 
-</Media>
+                    <Stagger in>
+                        {partners}
+                    </Stagger>
+                </Media>
 
-</div>
+            </div>
 
-     )
+        )
 
 
     }
@@ -131,7 +140,7 @@ function About(props) {
                 <div className="col-12">
                     <h3>Community Partners</h3>
                 </div>
-               <PartnerList partners={props.partners}/>
+                <PartnerList partners={props.partners} />
             </div>
         </div>
     );
