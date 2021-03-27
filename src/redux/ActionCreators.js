@@ -4,8 +4,19 @@ import * as ActionTypes from './ActionTypes'
 
 import { baseUrl } from '../shared/baseUrl'; ///<---base url for integrating forntend with js server
 
+//REMEMBNER Redux thunk allows to return a function from a fuction instead of an object
+//Traditionally redux wants this:
 
+// function campsiteLoasdin(){
 
+//     return{
+//         type: ActionTypes.VAMPSITE_LOADING,
+//         payload:{}
+//     }
+// }
+
+//REDUX THUNKWAY asyncronously do 
+//export const fetchCampsites = () => dispatch => {  ..check below:) 2 arrows (nested functions)
 
 //EXAMPLE:
 // export const addComment = (campsiteId, rating, author, text) => ({
@@ -18,20 +29,29 @@ import { baseUrl } from '../shared/baseUrl'; ///<---base url for integrating for
 //     }
 // });
 
+//=========================NOTE!!!!!=============================================
+//This fucntion below is called in MainComponent inside a lifeCycle method (react hook) as this.props.fetchCampsite
+//REMEMBER: the reson why its called props because it is passed as const mapDispatchToProps = {....fetchCampsites: () => (fetchCampsites()),}
+//which is passed to redux in the export declaration as: export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
 
+//REDUX THUNK ALOWS US TO DO THIS
+//REMEMBER: this is promise chaining of 3 promises (3* .then())
+// 1st fecth data and return response
+// 2st if success convert returned response to json data
+// 3rd dispatch action with campsites data
 
 export const fetchCampsites = () => dispatch => {
 
-    dispatch(campsitesLoading());//<----hthis action is dispatched so that the component that is rendering campsites knows that the data is not yet loaded
+    dispatch(campsitesLoading());//<----this action is dispatched so that the component that is rendering campsites knows that the data is not yet loaded
     //this below would be the fetch statememnt to retrieve CAMPSITES data from the server
     // setTimeout(() => {
     //     dispatch(addCampsites(CAMPSITES));
     // }, 2000);
 
     return fetch(baseUrl + 'campsites')//<---concatenated string to create path to db.js in server and laod campsites obj array
-        .then(response => {
+        .then(response => {//first promise
             if (response.ok) {//<---if there is a response.ok (response code in the 200 range) object then this returns true and returns teh response object
-                return response;
+                return response;//<--this is what is returned from the first promise->then format response to json() see below at
             } else {
                 const error = new Error(`Error ${response.status}: ${response.statusText}`);//<-if error then create a new error object and throw an error which will be captured by the catch statetemnt at the end
                 error.response = response;
@@ -43,8 +63,8 @@ export const fetchCampsites = () => dispatch => {
                 throw errMess;
             }
         )
-        .then(response => response.json())
-        .then(campsites => dispatch(addCampsites(campsites)))
+        .then(response => response.json())//second proimse
+        .then(campsites => dispatch(addCampsites(campsites)))/// third promise THIS IS WHERE campsite data is ADDED TO payload of addCampsites!!
         .catch(error => dispatch(campsitesFailed(error.message)));//<---this will catch all thrown errors and also dispatehces the error action named as : campsitesFailed(error.message) with the message as an arg
     //remember campsitesFailed(error.message) is defined in ActionCretors.js {this file jsut below this section}
 };
@@ -61,8 +81,8 @@ export const campsitesFailed = errMess => ({
 });
 //takes campsites array as arg and makes it payload in returned object
 export const addCampsites = campsites => ({
-    type: ActionTypes.ADD_CAMPSITES,
-    payload: campsites
+    type: ActionTypes.ADD_CAMPSITES,//actiontype that the Capmsites.js reducer listens to and modifyes the returned state by replacing the empty array in th einital state with the camspites data fetched from the server
+    payload: campsites//<-----added above as a return from fetchCampsites  which gets data from theserver
 });
 
 //=======================================================================================================

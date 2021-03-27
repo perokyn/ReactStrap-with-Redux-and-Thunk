@@ -22,7 +22,7 @@ export const ConfigureStore = () => {
                 feedbackForm: InitialFeedback
             })
         }),
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, logger)//this is where add middlewares that are imported
     );
 
     return store;

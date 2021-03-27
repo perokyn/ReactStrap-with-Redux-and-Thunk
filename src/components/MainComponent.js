@@ -1,6 +1,6 @@
 
 
-import React, { Component } from 'react';
+import React, { Component, useReducer } from 'react';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Directory from './DirectoryComponent';
@@ -16,13 +16,14 @@ import { actions } from 'react-redux-form'//<----REMEMBER required top reset the
 
 import { postComment, fetchCampsites, fetchComments, fetchPromotions, fetchPartners, postFeedback } from '../redux/ActionCreators';//importing actions from ActionCreators.js (after adding server connection)
 import { TransitionGroup, CSSTransition } from 'react-transition-group';//--page animation (check App.css for classes)
+import { Campsites } from '../redux/campsites';
 
 
 
 // state data wrapped in mapStateToProps obect which holds data red from the redux store! (passed to connect as first argument //to read///)
 const mapStateToProps = state => {
     return {
-        campsites: state.campsites,
+        campsites: state.campsites,//get this state property from the Redux store
         comments: state.comments,
         partners: state.partners,
         promotions: state.promotions
@@ -46,7 +47,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
     fetchCampsites: () => (fetchCampsites()),
-    resetFeedbackForm: () => (actions.reset('feedbackForm')),
+    resetFeedbackForm: () => (actions.reset('feedbackForm')),//REMEMBER 'feedbackFrom is what the model is in From tag <Form model ='feedBackForm'>
     fetchComments: () => (fetchComments()),
     fetchPromotions: () => (fetchPromotions()),
     fetchPartners: () => (fetchPartners()),
@@ -157,3 +158,20 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
 // MapDispatchToProps can again be null if not using and dispaching actions
 
 //add these to connect so that redux is aware of what actions and state readings this component needs
+// IN SHORT connect(mapStateToProps, mapDispatchToProps)(Main)
+//Main component reads state and dispatches actions (view that dispatches action)
+//First argument( which states to read,)
+//Second argument(which actions this view (Main) is dispatching to the store.)
+
+
+///when Main view dispatches fetchCampsites: () => (fetchCampsites()) action, it goes to the ActionCreator fetches data and pass it to the
+//Campsites.js useReducer, which accordingly tot he action type updates the state defined here as:
+//fetchCampsites are immedately called when component mounts (COmponent did mount) or as a hook : useEffect
+
+
+// const mapStateToProps = state => {
+//     return {
+//         campsites: state.campsites,
+//       ...
+//     };
+// };
